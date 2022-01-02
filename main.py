@@ -12,9 +12,9 @@ if len(sys.argv) == 1: # default
     song_name = os.popen('mpc -f %title% current').read()
     song_artist = os.popen('mpc -f %artist% current').read()
 elif sys.argv[2] == '-i' or sys.argv[2] == '--i': # interactive mode
-    song_name = input('Song ame: ')
+    song_name = input('Song name: ')
     song_artist = input('Name artist: ')
-else sys.argv[2] == '-h' or sys.argv[2] == '--help': # help
+elif sys.argv[2] == '-h' or sys.argv[2] == '--help': # help
     print("""   
           Usage: lyrics
                  Shows in the terminal the lyrics of the song that is 
