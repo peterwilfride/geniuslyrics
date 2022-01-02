@@ -2,6 +2,7 @@
 
 import os
 import json
+import sys
 import dotenv
 from termcolor import colored
 from lyricsgenius import Genius
@@ -10,13 +11,24 @@ from lyricsgenius.api.public_methods import artist
 dotenv_file = dotenv.find_dotenv()
 dotenv.load_dotenv(dotenv_file)
 
-#song_name = input('Name: ')
-#song_artist = input('Artist: ')
+if len(sys.argv) == 1: # default
+    song_name = os.popen('mpc -f %title% current').read()
+    song_artist = os.popen('mpc -f %artist% current').read()
+elif sys.argv[2] == '-i' or sys.argv[2] == '--i': # interactive mode
+    song_name = input('Song ame: ')
+    song_artist = input('Name artist: ')
+elif sys.argv[2] == '-h' or sys.argv[2] == '--help': # help
+    print("""   
+          Usage: lyrics
+                 Shows in the terminal the lyrics of the song that is 
+                 playing through the mpc or playerctl.
 
-song_name = os.popen('mpc -f %title% current').read()
-song_artist = os.popen('mpc -f %artist% current').read()
-#print(song_name, type(song_name))
-#print(song_artist, type(song_artist))
+          Options:
+            -i, --i     Interactive mode. prompts the user to name and 
+                        artist the song that wants to see the lyrics.
+            -h, --help  Help.
+
+          """)
 
 TOKEN = os.environ.get("TOKEN")
 genius = Genius(TOKEN)
