@@ -8,16 +8,13 @@ from termcolor import colored
 from lyricsgenius import Genius
 from lyricsgenius.api.public_methods import artist
 
-dotenv_file = dotenv.find_dotenv()
-dotenv.load_dotenv(dotenv_file)
-
 if len(sys.argv) == 1: # default
     song_name = os.popen('mpc -f %title% current').read()
     song_artist = os.popen('mpc -f %artist% current').read()
 elif sys.argv[2] == '-i' or sys.argv[2] == '--i': # interactive mode
     song_name = input('Song ame: ')
     song_artist = input('Name artist: ')
-elif sys.argv[2] == '-h' or sys.argv[2] == '--help': # help
+else sys.argv[2] == '-h' or sys.argv[2] == '--help': # help
     print("""   
           Usage: lyrics
                  Shows in the terminal the lyrics of the song that is 
@@ -29,6 +26,9 @@ elif sys.argv[2] == '-h' or sys.argv[2] == '--help': # help
             -h, --help  Help.
 
           """)
+    
+dotenv_file = dotenv.find_dotenv()
+dotenv.load_dotenv(dotenv_file)
 
 TOKEN = os.environ.get("TOKEN")
 genius = Genius(TOKEN)
