@@ -10,11 +10,13 @@ from lyricsgenius.api.public_methods import artist
 dotenv_file = dotenv.find_dotenv()
 dotenv.load_dotenv(dotenv_file)
 
-#_name = input('Name: ')
-#_artist = input('Artist: ')
+#song_name = input('Name: ')
+#song_artist = input('Artist: ')
 
-song_name = os.system('mpc -f %title% current')
-song_artist = os.system('mpc -f %artist% current')
+song_name = os.popen('mpc -f %title% current').read()
+song_artist = os.popen('mpc -f %artist% current').read()
+#print(song_name, type(song_name))
+#print(song_artist, type(song_artist))
 
 TOKEN = os.environ.get("TOKEN")
 genius = Genius(TOKEN)
