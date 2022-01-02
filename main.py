@@ -10,13 +10,16 @@ from lyricsgenius.api.public_methods import artist
 dotenv_file = dotenv.find_dotenv()
 dotenv.load_dotenv(dotenv_file)
 
-_name = input('Name: ')
-_artist = input('Artist: ')
+#_name = input('Name: ')
+#_artist = input('Artist: ')
+
+song_name = os.system('mpc -f %title% current')
+song_artist = os.system('mpc -f %artist% current')
 
 TOKEN = os.environ.get("TOKEN")
 genius = Genius(TOKEN)
 
-song = genius.search_song(_name, artist=_artist)
+song = genius.search_song(song_name, artist=song_artist)
 
 _ = song.save_lyrics('tmp_lyrics.json')
 
